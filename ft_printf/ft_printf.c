@@ -6,7 +6,7 @@
 /*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 17:46:03 by asthibau          #+#    #+#             */
-/*   Updated: 2025/08/27 21:50:41 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/08/28 00:01:48 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			count += check_percent(str[i + 1], count, args);
+			count = check_percent(str[i + 1], count, args);
 			i += 2;
 		}
 		else
