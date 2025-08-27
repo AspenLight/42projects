@@ -1,17 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_print_ptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asthibau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 20:56:05 by asthibau          #+#    #+#             */
-/*   Updated: 2025/05/15 20:56:05 by asthibau         ###   ########.fr       */
+/*   Created: 2025/08/19 17:53:03 by asthibau          #+#    #+#             */
+/*   Updated: 2025/08/27 21:45:18 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-char	**ft_split(const char *s, char c)
+#include "ft_printf.h"
+
+int	ft_print_ptr(unsigned long int ptr)
 {
-	
+	int	count;
+
+	count = 0;
+	if (ptr > 16)
+		count += ft_print_ptr(ptr / 16);
+	count += ft_print_char("0123456789abcdef"[ptr % 16]);
+	return (count);
 }

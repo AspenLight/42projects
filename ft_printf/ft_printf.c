@@ -6,7 +6,7 @@
 /*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 17:46:03 by asthibau          #+#    #+#             */
-/*   Updated: 2025/08/27 21:08:37 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/08/27 21:50:41 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	check_percent(char c, int count, va_list args)
 	if (c == 's')
 		count += ft_print_str(va_arg(args, char *));
 	if (c == 'p')
+	{
+		count += ft_print_str("0x");
 		count += ft_print_ptr((unsigned long int)va_arg(args, void *));
+	}
 	if (c == 'd')
 		count += ft_print_dec(va_arg(args, int));
 	if (c == 'i')
