@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asthibau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 20:56:49 by asthibau          #+#    #+#             */
-/*   Updated: 2025/05/15 21:54:51 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:01:23 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	i = 0;
 	while (s[i])
 	{
 		i++;

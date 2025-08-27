@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asthibau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 21:00:43 by asthibau          #+#    #+#             */
-/*   Updated: 2025/05/15 21:00:44 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:01:51 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_toupper(int c)
 {
 	if (c >= 97 && c <= 122)
 	{
-		c = c - 32;
-		return (c);
+		return (c - 32);
 	}
 	else
 	{
-		return (0);
+		return (c);
 	}
 }

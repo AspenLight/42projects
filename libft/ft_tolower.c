@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asthibau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 21:00:34 by asthibau          #+#    #+#             */
-/*   Updated: 2025/05/15 21:00:36 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:01:49 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 int	ft_tolower(int c)
 {
 	if (c >= 65 && c <= 90)
 	{
-		c = c + 32;
-		return (c);
+		return (c + 32);
 	}
 	else
 	{
-		return (0);
+		return (c);
 	}
 }

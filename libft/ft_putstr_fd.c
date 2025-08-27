@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asthibau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 20:55:37 by asthibau          #+#    #+#             */
-/*   Updated: 2025/05/15 20:55:38 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/05/24 16:01:00 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	
+	while (*s != '\0')
+	{
+		write(fd, s, 1);
+		s++;
+	}
+	return ;
 }
