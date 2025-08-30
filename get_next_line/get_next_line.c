@@ -6,7 +6,7 @@
 /*   By: asthibau <asthibau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 22:12:49 by asthibau          #+#    #+#             */
-/*   Updated: 2025/08/27 23:46:36 by asthibau         ###   ########.fr       */
+/*   Updated: 2025/08/29 04:02:40 by asthibau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_free(char *result, char *buffer)
 	char	*temp;
 
 	temp = ft_strjoin(result, buffer);
-	free (buffer);
+	free (result);
 	return (temp);
 }
 
@@ -80,7 +80,7 @@ char	*read_file(int fd, char *result)
 		bread = read(fd, buffer, BUFFER_SIZE);
 		if (bread == -1)
 		{
-			free(buffer);
+			free (buffer);
 			return (NULL);
 		}
 		buffer[bread] = 0;
