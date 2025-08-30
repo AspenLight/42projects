@@ -29,6 +29,7 @@ int	ft_print_uns(unsigned int i)
 {
 	char			c;
 	unsigned long	nb;
+
 	nb = i;
 	if (nb > 9)
 	{
