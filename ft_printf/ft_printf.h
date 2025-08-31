@@ -16,7 +16,6 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
 
 int	ft_printf(const char *format, ...);
 int	check_percent(char c, int count, va_list args);
