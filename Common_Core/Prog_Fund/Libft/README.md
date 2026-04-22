@@ -7,9 +7,11 @@ This project is a C Library full of programs created to emulate common and usefu
 This project contains a Makefile with the rules: all, clean, fclean, and re. the project can be compiled with the 'make all' command. it can be cleaned by the 'make fclean' command, and it can be recompiled by the 'make re' command. Compiling this project creates a libft.a file which can be used as a C library in other projects.
 
 ## Resources
-[link]https://www.tutorialspoint.com/c_standard_library/index.htm
+[https://www.tutorialspoint.com/c_standard_library/index.htm]
+
 See Libft Subject PDF for descriptions of functions not found within the C Standard Library.
 For a description or a detailed syntax of a function, check the file 'libft.h' or the file matching the name of the function.
+
 No AI was used in this project.
 
 ## Library
