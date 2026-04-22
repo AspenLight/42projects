@@ -6,13 +6,13 @@
 /*   By: aspthiba <aspthiba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 11:00:53 by aspthiba          #+#    #+#             */
-/*   Updated: 2026/04/21 18:26:16 by aspthiba         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:42:01 by aspthiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list *lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
 	t_list	*temp;
 

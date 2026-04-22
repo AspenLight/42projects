@@ -6,7 +6,7 @@
 /*   By: aspthiba <aspthiba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 11:02:19 by aspthiba          #+#    #+#             */
-/*   Updated: 2026/04/21 12:53:35 by aspthiba         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:47:12 by aspthiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_list
 
 int		ft_atoi(const char *s);
 void	ft_bzero(void *s, size_t n);
-void	ft_calloc(size_t nitems, size_t size);
+void	*ft_calloc(size_t nitems, size_t size);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
@@ -35,7 +35,7 @@ int		ft_isprint(int c);
 char	*ft_itoa(int n);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
-void	ft_lstclear(t_list *lst, void (*del)(void *));
+void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
@@ -63,7 +63,7 @@ char	*ft_strmapi(const char *s, char (*f)(unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *str, const char *sub, size_t n);
 char	*ft_strrchr(const char *s, int c);
-char	*ft_strtrim(const char *s, int c);
+char	*ft_strtrim(const char *s, const char *set);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);

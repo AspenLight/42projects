@@ -1,40 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aspthiba <aspthiba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/20 11:01:43 by aspthiba          #+#    #+#             */
-/*   Updated: 2026/04/21 19:15:47 by aspthiba         ###   ########.fr       */
+/*   Created: 2026/04/20 11:01:32 by aspthiba          #+#    #+#             */
+/*   Updated: 2026/04/21 19:43:09 by aspthiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+void	ft_putnbr_fd(int n, int fd)
 {
-	size_t	i;
-	size_t	srclen;
-	char	*dest;
+	char	c;
+	long	nb;
 
-	i = 0;
-	srclen = ft_strlen(src);
-	dest = malloc((srclen + 1) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	while (src[i])
+	nb = n;
+	if (nb < 0)
 	{
-		dest[i] = src[i];
-		i++;
+		write(fd, "-", 1);
+		nb = -nb;
 	}
-	dest[i] = '\0';
-	return (dest);
+	if (nb > 9)
+	{
+		ft_putnbr_fd((nb / 10), fd);
+	}
+	c = (nb % 10) + '0';
+	write(fd, &c, 1);
+	return ;
 }
 /*
-char *ft_strdup(const char *s)
-This function copies given string 's' into
-a new string which is created and allocated within
-the function.
-Returns the new string 'dest'.
+void ft_putnbr_fd(int c, int fd)
+This function writes integer 'n' to the
+terminal or file pointed to by file descriptor 'fd'
+Returns nothing.
 */

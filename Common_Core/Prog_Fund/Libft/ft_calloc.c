@@ -6,13 +6,13 @@
 /*   By: aspthiba <aspthiba@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/20 11:00:22 by aspthiba          #+#    #+#             */
-/*   Updated: 2026/04/21 18:26:33 by aspthiba         ###   ########.fr       */
+/*   Updated: 2026/04/21 19:41:13 by aspthiba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_calloc(size_t nitems, size_t size)
+void	*ft_calloc(size_t nitems, size_t size)
 {
 	char	*ptr;
 	size_t	bytes;
