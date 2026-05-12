@@ -6,17 +6,17 @@ This Repository contains all past and present projects I have worked on while at
 ## Library
 The Projects contained are as follows:
 * Within Piscine/
-*   Shell00
-*   Shell01
-*   Rush00
-*   C00
-*   C01
-*   C02
-*   C03
-*   C04
-*   C05
-*   C06
-*   C07
+    -   Shell00
+    -   Shell01
+    -   Rush00
+    -   C00
+    -   C01
+    -   C02
+    -   C03
+    -   C04
+    -   C05
+    -   C06
+    -   C07
 
 * Within Piscine_Reloaded/
     -   Exercises 0-23
