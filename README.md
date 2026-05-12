@@ -37,7 +37,7 @@ The Projects contained are as follows:
     -   Failed Projects
 
 * Within Common Core/
-*   Programming Fundamentals
-    - Libft
-    - Get Next Line
+    - Programming Fundamentals
+        - Libft
+        - Get Next Line
 
