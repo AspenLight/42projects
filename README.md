@@ -35,4 +35,5 @@ The Projects contained are as follows:
 * Within Common Core/
 *   Programming Fundamentals
     - Libft
+    - Get Next Line
 
