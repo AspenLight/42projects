@@ -24,7 +24,8 @@ def main() -> None:
     events = gen_event()
     for i in range(1000):
         print(
-             f"Event {i}: Player {next(events)[0]} did action {next(events)[1]}"
+             f"Event {i}: Player {next(events)[0]}"
+             f" did action {next(events)[1]}"
              )
     lst = []
     for i in range(10):
