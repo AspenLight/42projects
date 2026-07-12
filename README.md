@@ -5,6 +5,7 @@ This Repository contains all past and present projects I have worked on while at
 
 ## Library
 The Projects contained are as follows:
+<<<<<<< HEAD
 * Within Piscine/
     -   Shell00
     -   Shell01
@@ -40,4 +41,37 @@ The Projects contained are as follows:
     - Programming Fundamentals
         - Libft
         - Get Next Line
+=======
+* Within Piscine
+    * Shell00
+    * Shell01
+    * Rush00
+    * C00
+    * C01
+    * C02
+    * C03
+    * C04
+    * C05
+    * C06
+    * C07
+* Within Piscine_Reloaded
+    * Exercises 0-23
+    * Within Old CC
+        * Libft
+        * get_next_line
+        * ft_printf
+        * ft_printf test main
+* Within Piscine-26
+    * Data Structures
+    * Imperative Programming
+    * Memory Management
+    * Shell
+    * Rush
+    * Tutorial
+    * Failed Projects
+* Within Common Core
+    * Programming Fundamentals
+        * Libft
+        * Printf
+>>>>>>> 1e8b6444d9e9bb431b8f6facaab5e2c459582f17
 
