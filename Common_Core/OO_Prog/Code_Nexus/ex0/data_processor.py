@@ -162,7 +162,7 @@ def main() -> None:
     test_dict_list = [
          {'log_level': 'NOTICE', 'log_message': 'Connection to server'},
          {'log_level': 'ERROR', 'log_message': 'Unauthorized access!!'}]
-    print("=== Code nexus - Data Processor ===\n")
+    print("=== Code Nexus - Data Processor ===\n")
     print("Testing Numeric Processor...")
     print(try_input(num_proc, 42))
     print(try_input(num_proc, 'Hello'))
