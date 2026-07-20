@@ -152,13 +152,16 @@ class ExportPlugin(Protocol):
 
 class ExportCSV(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
-        for item in data:
+        for item in data[:-1]:
             print(f"{item[1]}, ", end="")
+        print(f"{item[1]}", end="")
 
 
 class ExportJSON(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
-        ...
+        for item in data[:-1]:
+            print(f"{item[1]}, ", end="")
+        print(f"{item[1]}", end="")
 
 
 class DataStream():
@@ -211,6 +214,7 @@ class DataStream():
                 print("JSON Output:")
             plugin.process_output(data)
             print()
+            data = []
 
 
 def try_input(class_name: DataProcessor, data: Any) -> str:
