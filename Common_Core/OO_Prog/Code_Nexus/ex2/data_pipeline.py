@@ -13,7 +13,6 @@ class DataProcessor(ABC):
         try:
             first_key = next(iter(self.values))
         except StopIteration:
-            print(f"No more values {self}")
             return (0, "")
         return (first_key, self.values.pop(first_key))
 
@@ -152,16 +151,20 @@ class ExportPlugin(Protocol):
 
 class ExportCSV(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
-        for item in data[:-1]:
-            print(f"{item[1]}, ", end="")
-        print(f"{item[1]}", end="")
+        for i, item in enumerate(data):
+            print(f"{item[1]}", end="")
+            if i != len(data) - 1:
+                print(", ", end="")
 
 
 class ExportJSON(ExportPlugin):
     def process_output(self, data: list[tuple[int, str]]) -> None:
-        for item in data[:-1]:
-            print(f"{item[1]}, ", end="")
-        print(f"{item[1]}", end="")
+        print("{", end="")
+        for i, item in enumerate(data):
+            print(f"\"item_{item[0]}\": \"{item[1]}\"", end="")
+            if i != len(data) - 1:
+                print(", ", end="")
+        print("}", end="")
 
 
 class DataStream():
@@ -171,7 +174,6 @@ class DataStream():
 
     def register_processor(self, proc: DataProcessor) -> None:
         if isinstance(proc, DataProcessor):
-            print(f"Registering {proc}")
             self.procs.append(proc)
         else:
             print(f"{proc} couldn't be registered")
@@ -207,10 +209,13 @@ class DataStream():
         data = []
         for proc in procs:
             for _ in range(nb):
-                data.append(proc.output())
-            if plugin == ExportCSV:
+                output = proc.output()
+                if output == (0, ""):
+                    break
+                data.append(output)
+            if type(plugin) is ExportCSV:
                 print("CSV Output:")
-            elif plugin == ExportJSON:
+            elif type(plugin) is ExportJSON:
                 print("JSON Output:")
             plugin.process_output(data)
             print()
@@ -249,20 +254,22 @@ def main() -> None:
          {'log_level': 'INFO', 'log_message':
           'User wil is connected'}], 42, ['Hi', 'five']]
     print("=== Code Nexus - Data Pipeline ===\n")
-    print("Initialize Data Stream...")
+    print("Initialize Data Stream...\n")
     stream.print_processors_stats()
     print()
+    print("Registering Processors")
     stream.register_processor(num_proc)
     stream.register_processor(txt_proc)
     stream.register_processor(log_proc)
     print()
     print(f"Send first batch of data on stream: {first_batch}")
     stream.process_stream(first_batch)
-    print()
+    print("")
     stream.print_processors_stats()
     print()
     print("Send 3 processed data from each processor to a CSV plugin:")
     stream.output_pipeline(3, csv)
+    print()
     stream.print_processors_stats()
     print()
     second_batch = [
