@@ -40,7 +40,7 @@ The Projects contained are as follows:
     - Programming Fundamentals
         - Libft
         - Get Next Line
-=======
+
 * Within Piscine
     * Shell00
     * Shell01
@@ -53,6 +53,7 @@ The Projects contained are as follows:
     * C05
     * C06
     * C07
+
 * Within Piscine_Reloaded
     * Exercises 0-23
     * Within Old CC
@@ -60,6 +61,7 @@ The Projects contained are as follows:
         * get_next_line
         * ft_printf
         * ft_printf test main
+
 * Within Piscine-26
     * Data Structures
     * Imperative Programming
@@ -68,8 +70,10 @@ The Projects contained are as follows:
     * Rush
     * Tutorial
     * Failed Projects
+
 * Within Common Core
     * Programming Fundamentals
         * Libft
         * Printf
+
 
