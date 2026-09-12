@@ -5,7 +5,6 @@ This Repository contains all past and present projects I have worked on while at
 
 ## Library
 The Projects contained are as follows:
-<<<<<<< HEAD
 * Within Piscine/
     -   Shell00
     -   Shell01
@@ -73,5 +72,4 @@ The Projects contained are as follows:
     * Programming Fundamentals
         * Libft
         * Printf
->>>>>>> 1e8b6444d9e9bb431b8f6facaab5e2c459582f17
 
