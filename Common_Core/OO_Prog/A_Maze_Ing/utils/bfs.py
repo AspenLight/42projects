@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
 import numpy as np
-import random
 from queue import Queue
 
 
@@ -17,9 +15,9 @@ def BFS(maze, start, end):
             if (next_node == end):
                 return path + [next_node]
             if (next_node[0] >= 0 and next_node[1] >= 0
-                and next_node[0] < maze.shape[0]
-                and next_node[1] < maze.shape[1]
-                and maze[next_node] == 0
-                and not visited[next_node]):
+                    and next_node[0] < maze.shape[0]
+                    and next_node[1] < maze.shape[1]
+                    and maze[next_node] == 0
+                    and not visited[next_node]):
                 visited[next_node] = True
                 queue.put((next_node, (path + [next_node])))

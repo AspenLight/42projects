@@ -32,6 +32,7 @@ def config_extract(args: str) -> dict:
 def maze_gestion(args: tuple) -> None:
     width, height, output_file, perfect, entry, exit, has_seed = args
     maze = maze_generator(perfect, (height, width))
+    # placer fonction chemin ICI path:string = maze_solver(entry, exit, maze.contain)
     maze_to_txt(maze, output_file)
     maze_terminal_visu(maze)
     app_maze_visuals(maze, perfect, maze.height, maze.width, args)
