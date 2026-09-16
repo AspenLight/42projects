@@ -88,8 +88,8 @@ def path_reconstruct(nodemaze: list[list[Node]], exit: tuple[int, int], entry: t
 
 
 def maze_solver(entry: tuple[int, int], exit: tuple[int, int], maze: list[list[int]]) -> str:
-    checklist: list[tuple[int, int]]
-    checked: list[tuple[int, int]]
+    checklist: list[tuple[int, int]] = []
+    checked: list[tuple[int, int]] = []
     found_exit: bool = False
     path: str
     sizey: int = len(maze)
@@ -97,38 +97,38 @@ def maze_solver(entry: tuple[int, int], exit: tuple[int, int], maze: list[list[i
     nodemaze = np.empty((sizex, sizey), dtype=Node)
     maze_convert(maze, nodemaze)
     checklist.append(entry)
-    nodemaze[entry[0]][entry[1]].dist = 0
+    nodemaze[entry[1]][entry[0]].dist = 0
     for x, y in checklist and found_exit is not True:
         if y == exit[0] and x == exit[1]:
             found_exit = True
             return
         if nodemaze[y][x].n == True:
-            if (y - 1, x) in checked:
+            if (x, y - 1) in checked:
                 nodemaze[y][x].update_dist(nodemaze[y - 1][x].dist)
             else:
-                checklist.append((y - 1, x))
-            checked.append((y, x))
+                checklist.append((x, y - 1))
+            checked.append((x, y))
             checklist.pop(0)
         if nodemaze[y][x].e == True:
-            if (y, x + 1) in checked:
+            if (x + 1, y) in checked:
                 nodemaze[y][x].update_dist(nodemaze[y][x + 1].dist)
             else:
-                checklist.append((y - 1, x))
-            checked.append((y, x))
+                checklist.append((x + 1, y))
+            checked.append((x, y))
             checklist.pop(0)
         if nodemaze[y][x].s == True:
-            if (y + 1, x) in checked:
+            if (x, y + 1) in checked:
                 nodemaze[y][x].update_dist(nodemaze[y + 1][x].dist)
             else:
-                checklist.append((y - 1, x))
-            checked.append((y, x))
+                checklist.append((x, y + 1))
+            checked.append((x, y))
             checklist.pop(0)
         if nodemaze[y][x].w == True:
-            if (y, x - 1) in checked:
+            if (x - 1, y) in checked:
                 nodemaze[y][x].update_dist(nodemaze[y][x - 1].dist)
             else:
-                checklist.append((y - 1, x))
-            checked.append((y, x))
+                checklist.append((x - 1, y))
+            checked.append((x, y))
             checklist.pop(0)
     if found_exit is False:
         return "Path not found"
