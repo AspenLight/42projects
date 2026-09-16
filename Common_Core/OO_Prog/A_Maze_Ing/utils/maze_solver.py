@@ -45,7 +45,7 @@ def path_reconstruct(nodemaze: list[list[Node]], exit: tuple[int, int], entry: t
     path: list[int]
     result: str
     dir: int = 0
-    while x != entry[1] and y != entry[0]:
+    while x != entry[0] and y != entry[1]:
         if nodemaze[y][x].n == True:
             dists.append(nodemaze[y - 1][x].dist)
             dir = 1
