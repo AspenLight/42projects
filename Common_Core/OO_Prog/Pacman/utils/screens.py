@@ -220,12 +220,23 @@ class GameScreen(Screen):
         self.elapsed_ms += state.dt
         for id, ghost in enumerate(self.ghosts):
             ghost.advance(state.dt)
-            ghost.update(id, self.maze, state)
-            if (
-                ghost.vulnerable is False
-                and ghost.grid_position == self.player.grid_position
-            ):
-                state.end_life = True
+            ghost.update(id, self.maze, state, self.player.grid_position)
+            print(
+                f"\033[K{ghost.invul}, {ghost.vulnerable}, {ghost.alive}",
+                end="\n",
+                flush=True,
+            )
+            if not ghost.alive and ghost.grid_position == ghost.start_pos:
+                if ghost.vulnerable:
+                    ghost.invul = (True, 0)
+                ghost.vulnerable = False
+                ghost.alive = True
+            if ghost.grid_position == self.player.grid_position:
+                if not ghost.vulnerable:
+                    if ghost.alive:
+                        state.end_life = True
+                else:
+                    ghost.alive = False
         if state.timer <= 0.0:
             state.life = 0
         if state.vul_ghosts is True:
@@ -245,8 +256,10 @@ class GameScreen(Screen):
             flush=True,
         )
         print(f"\033[Ktime left = {round(state.timer)}", end="\n", flush=True)
-        print(f"\033[Kvul_timer = {round(state.vul_timer)}", end="", flush=True)
-        print("\033[3A\r", end="", flush=True)
+        print(
+            f"\033[Kvul_timer = {round(state.vul_timer)}", end="", flush=True
+        )
+        print("\033[7A\r", end="", flush=True)
         if state.end_life is True and state.life != 0:
             self.on_redo()
             state.life -= 1

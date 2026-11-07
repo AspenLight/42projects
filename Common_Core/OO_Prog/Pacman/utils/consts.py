@@ -1,6 +1,7 @@
 from typing import Optional
 import pygame
 
+PLAYER_SPEED: float = 5.5  # cells per second
 MARGIN: int = 15
 FPS: int = 60
 SPRITE_DIM: int = 31
@@ -61,6 +62,7 @@ GHOST_FRAMES: list[list[tuple[int, int]]] = [
         (7, 4),  # 14 up2
         (7, 5),  # 15 up4
     ],
+    [(10, 0), (10, 1), (10, 2), (10, 3)],  # Left, Down, Right, Up
 ]
 IDLE: tuple[int, ...] = (0, 0, 0, 0)
 # Keys are Optional[str] because set_animation() can be called with None
@@ -80,4 +82,8 @@ GHOST_ANIMATIONS: dict[Optional[str], tuple[int, ...]] = {
     "v_down": (4, 6, 5, 7),
     "v_left": (8, 10, 9, 11),
     "v_right": (0, 2, 1, 3),
+    "d_up": (3, 3),
+    "d_down": (1, 1),
+    "d_left": (0, 0),
+    "d_right": (2, 2),
 }

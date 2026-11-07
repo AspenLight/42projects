@@ -15,7 +15,7 @@ from .consts import (
     IDLE,
     PLAYER_ANIMATIONS,
     GHOST_ANIMATIONS,
-    NODE,
+    PLAYER_SPEED,
 )
 from .screens import Screen, MenuScreen, TypingScreen, GameScreen
 
@@ -45,5 +45,5 @@ __all__ = [
     "IDLE",
     "PLAYER_ANIMATIONS",
     "GHOST_ANIMATIONS",
-    "NODE",
+    "PLAYER_SPEED",
 ]

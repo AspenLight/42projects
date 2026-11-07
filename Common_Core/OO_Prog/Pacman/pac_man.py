@@ -61,8 +61,13 @@ def load_ghost(
         get_img(sheet, row, col, SPRITE_DIM, cell_size)
         for row, col in GHOST_FRAMES[4]
     ]
+    ghost.dead_frames = [
+        get_img(sheet, row, col, SPRITE_DIM, cell_size)
+        for row, col in GHOST_FRAMES[5]
+    ]
     ghost.grid_position = start_pos
     ghost.set_animation(None, id, True)
+    ghost.start_pos = start_pos
     return ghost
 
 
