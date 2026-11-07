@@ -253,240 +253,113 @@ class Entity:
 
 class Pathfinding:
     grid_position: pygame.Vector2
+    lastmove: str
 
-    def secondary_target(
-        self,
-        player_pos: pygame.Vector2,
-        priority: str,
-    ) -> str:
-        direction = ""
-        if priority == "EW":
-            dir = player_pos[0] - self.grid_position[0]
-            if dir > 0:
-                direction = "E"
-            elif dir < 0:
-                direction = "W"
-        elif priority == "NS":
-            dir = player_pos[1] - self.grid_position[1]
-            if dir > 0:
-                direction = "S"
-            elif dir < 0:
-                direction = "N"
-        return direction
-
-    # intersect_move takes a list of available directions, the player position, and the ghost position
-    # it returns a tuple coordinate of where the ghost should move
-    def intersect_move(
-        self,
-        dirs: list[str],
-        player_pos: pygame.Vector2,
-    ) -> pygame.Vector2 | None:
-        dir_NS = player_pos[1] - self.grid_position[1]
-        dir_EW = player_pos[0] - self.grid_position[0]
+    def target_tile(self, dirs: list[str], target_pos: pygame.Vector2) -> pygame.Vector2 | None:
+        dir_NS = target_pos[1] - self.grid_position[1]
+        dir_EW = target_pos[0] - self.grid_position[0]
         if dir_NS == 0 and dir_EW == 0:
-            return
-        if len(dirs) != 3:
-            return
-        priority = "NS"
-        direction = "N"
+            return pygame.Vector2
 
-        if abs(dir_NS) < abs(dir_EW):
-            priority = "EW"
-            direction = "E"
-
-        if priority == "NS":
-            if dir_NS > 0:
-                direction = "S"
-            if dir_NS < 0:
-                direction = "N"
-            if dir_NS == 0:
-                priority = "EW"
-        if priority == "EW":
-            if dir_EW > 0:
-                direction = "E"
-            if dir_EW < 0:
-                direction = "W"
-            if dir_EW == 0:
-                priority = "NS"
-        if priority == "NS" and direction == ("E" or "W"):
-            if dir_NS > 0:
-                direction = "S"
-            if dir_NS < 0:
-                direction = "N"
-
-        if direction == "N" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0], self.grid_position[1] - 1
-            )
-        if direction == "S" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0], self.grid_position[1] + 1
-            )
-        if direction == "E" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0] + 1, self.grid_position[1]
-            )
-        if direction == "W" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0] - 1, self.grid_position[1]
-            )
-        if priority == "NS":
-            priority = "EW"
-        elif priority == "EW":
-            priority = "NS"
-        direction = self.secondary_target(player_pos, priority)
-        if direction == "N" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0], self.grid_position[1] - 1
-            )
-        if direction == "S" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0], self.grid_position[1] + 1
-            )
-        if direction == "E" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0] + 1, self.grid_position[1]
-            )
-        if direction == "W" and direction in dirs:
-            return pygame.Vector2(
-                self.grid_position[0] - 1, self.grid_position[1]
-            )
-
-    # hallway_move takes a list of available directions, the player position, and the ghost position
-    # it returns a tuple coordinate of where the ghost should move
-    def hallway_move(
-        self,
-        dirs: list[str],
-        player_pos: pygame.Vector2,
-    ) -> pygame.Vector2 | None:
-        dir_NS = player_pos[1] - self.grid_position[1]
-        dir_EW = player_pos[0] - self.grid_position[0]
-        if dir_EW == 0 and dir_NS == 0:
-            return
-
-        if "N" in dirs and "S" in dirs:
-            if dir_NS > 0:
-                return pygame.Vector2(
-                    self.grid_position[0], self.grid_position[1] + 1
-                )
-            elif dir_NS < 0:
+        if (abs(dir_NS) > abs(dir_EW)) and dir_NS is not 0:
+            if dir_NS < 0 and "N" in dirs:
+                self.lastmove = "N"
                 return pygame.Vector2(
                     self.grid_position[0], self.grid_position[1] - 1
                 )
-            else:
+            if dir_NS > 0 and "S" in dirs:
+                self.lastmove = "S"
                 return pygame.Vector2(
                     self.grid_position[0], self.grid_position[1] + 1
                 )
-        elif "E" in dirs and "W" in dirs:
-            if dir_EW > 0:
+        elif (abs(dir_EW) > abs(dir_NS)) and dir_EW is not 0:
+            if dir_EW > 0 and "E" in dirs:
+                self.lastmove = "E"
                 return pygame.Vector2(
                     self.grid_position[0] + 1, self.grid_position[1]
                 )
-            elif dir_EW < 0:
+            if dir_EW < 0 and "W" in dirs:
+                self.lastmove = "W"
                 return pygame.Vector2(
                     self.grid_position[0] - 1, self.grid_position[1]
                 )
-            else:
+
+        if dir_NS == 0:
+            if dir_EW > 0 and "E" in dirs:
+                self.lastmove = "E"
                 return pygame.Vector2(
                     self.grid_position[0] + 1, self.grid_position[1]
                 )
-        else:
-            if (abs(dir_NS) < abs(dir_EW)) and dir_NS != 0:
-                if dir_NS > 0 and "N" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0], self.grid_position[1] - 1
-                    )
-                elif dir_NS < 0 and "S" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0], self.grid_position[1] + 1
-                    )
-            if abs(dir_NS) < abs(dir_EW) and dir_EW != 0:
-                if dir_EW > 0 and "E" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0] + 1, self.grid_position[1]
-                    )
-                if dir_EW < 0 and "W" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0] - 1, self.grid_position[1]
-                    )
-            if dir_NS == 0 and ("E" or "W") in dirs:
-                if dir_EW > 0 and "E" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0] + 1, self.grid_position[1]
-                    )
-                elif dir_EW < 0 and "W" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0] - 1, self.grid_position[1]
-                    )
-                else:
-                    if "E" in dirs:
-                        return pygame.Vector2(
-                            self.grid_position[0] + 1, self.grid_position[1]
-                        )
-                    if "W" in dirs:
-                        return pygame.Vector2(
-                            self.grid_position[0] - 1, self.grid_position[1]
-                        )
-            if dir_EW == 0 and ("N" or "S") in dirs:
-                if dir_NS > 0 and "N" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0], self.grid_position[1] - 1
-                    )
-                elif dir_NS < 0 and "S" in dirs:
-                    return pygame.Vector2(
-                        self.grid_position[0], self.grid_position[1] + 1
-                    )
-                else:
-                    if "N" in dirs:
-                        return pygame.Vector2(
-                            self.grid_position[0], self.grid_position[1] - 1
-                        )
-                    if "S" in dirs:
-                        return pygame.Vector2(
-                            self.grid_position[0], self.grid_position[1] + 1
-                        )
-
-    # free_move takes the player position and the ghost position
-    # and returns the coordinate of where the ghost should go next
-    def free_move(self, player_pos: pygame.Vector2) -> pygame.Vector2 | None:
-        dir_NS = player_pos[1] - self.grid_position[1]
-        dir_EW = player_pos[0] - self.grid_position[0]
-        if dir_NS == 0 and dir_EW == 0:
-            return
-
-        if abs(dir_NS) < abs(dir_EW) and dir_NS != 0:
-            if dir_NS > 0:
+            if dir_EW < 0 and "W" in dirs:
+                self.lastmove = "W"
+                return pygame.Vector2(
+                    self.grid_position[0] - 1, self.grid_position[1]
+                )
+        if dir_EW == 0:
+            if dir_NS < 0 and "N" in dirs:
+                self.lastmove = "N"
                 return pygame.Vector2(
                     self.grid_position[0], self.grid_position[1] - 1
                 )
-            if dir_NS < 0:
+            if dir_NS > 0 and "S" in dirs:
+                self.lastmove = "S"
                 return pygame.Vector2(
                     self.grid_position[0], self.grid_position[1] + 1
                 )
-        if abs(dir_NS) > abs(dir_EW) and dir_EW != 0:
-            if dir_EW > 0:
+    
+        if (abs(dir_NS) > abs(dir_EW)):
+            if dir_EW > 0 and "E" in dirs:
+                    self.lastmove = "E"
+                    return pygame.Vector2(
+                        self.grid_position[0] + 1, self.grid_position[1]
+                    )
+            if dir_EW < 0 and "W" in dirs:
+                    self.lastmove = "W"
+                    return pygame.Vector2(
+                        self.grid_position[0] - 1, self.grid_position[1]
+                    )
+        if (abs(dir_EW) > abs(dir_NS)):
+            if dir_NS < 0 and "N" in dirs:
+                self.lastmove = "N"
                 return pygame.Vector2(
-                    self.grid_position[0] + 1, self.grid_position[1]
+                    self.grid_position[0], self.grid_position[1] - 1
                 )
-            if dir_EW < 0:
+            if dir_NS > 0 and "S" in dirs:
+                self.lastmove = "S"
                 return pygame.Vector2(
-                    self.grid_position[0] - 1, self.grid_position[1]
+                    self.grid_position[0], self.grid_position[1] + 1
                 )
-        if dir_NS > 0:
-            return pygame.Vector2(
-                self.grid_position[0], self.grid_position[1] + 1
-            )
-        if dir_NS < 0:
+
+        if "N" in dirs:
+            self.lastmove = "N"
             return pygame.Vector2(
                 self.grid_position[0], self.grid_position[1] - 1
             )
+        if "E" in dirs:
+            self.lastmove = "E"
+            return pygame.Vector2(
+                self.grid_position[0] + 1, self.grid_position[1]
+            )
+        if "S" in dirs:
+            self.lastmove = "S"
+            return pygame.Vector2(
+                self.grid_position[0], self.grid_position[1] + 1
+            )
+        if "W" in dirs:
+            self.lastmove = "W"
+            return pygame.Vector2(
+                self.grid_position[0] - 1,self.grid_position[1]
+            )
+        return pygame.Vector2(
+            self.grid_position[0], self.grid_position[1]
+        )
 
-    # pathfind takes the node the ghost is on, the player position, and the ghost position
+    # pathfind takes the node the ghost is on, the target position, and the ghost position
     # and returns the new position the ghost should be at.
     def pathfind(
         self,
         node: Node,
-        player_pos: pygame.Vector2,
+        target_pos: pygame.Vector2,
     ) -> pygame.Vector2 | None:
         dirs: list[str] = []
         newpos: pygame.Vector2 | None
@@ -499,25 +372,20 @@ class Pathfinding:
             dirs.append("S")
         if node.w == True:
             dirs.append("W")
-
-        if len(dirs) == 2:
-            print(f"hallway, {dirs}")
-            newpos = self.hallway_move(dirs, player_pos)
-            dirs.clear()
-            return newpos
-        if len(dirs) == 3:
-            print(f"intersect, {dirs}")
-            newpos = self.intersect_move(dirs, player_pos)
-            dirs.clear()
-            return newpos
-        if len(dirs) == 4:
-            print(f"free, {dirs}")
-            newpos = self.free_move(player_pos)
-            dirs.clear()
-            return newpos
+        if len(dirs) == 1:
+            newpos = self.target_tile(dirs, target_pos)
         else:
-            dirs.clear()
-            return
+            if self.n_dir == "up":
+                dirs.remove("S")
+            if self.n_dir == "right":
+                dirs.remove("W")
+            if self.n_dir == "down":
+                dirs.remove("N")
+            if self.n_dir == "left":
+                dirs.remove("E")
+            newpos = self.target_tile(dirs, target_pos)
+        dirs.clear()
+        return newpos
 
 
 class Ghost(Entity, Pathfinding):
