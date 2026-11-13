@@ -5,36 +5,6 @@ This Repository contains all past and present projects I have worked on while at
 
 ## Library
 The Projects contained are as follows:
-* Within Piscine/
-    -   Shell00
-    -   Shell01
-    -   Rush00
-    -   C00
-    -   C01
-    -   C02
-    -   C03
-    -   C04
-    -   C05
-    -   C06
-    -   C07
-
-* Within Piscine_Reloaded/
-    -   Exercises 0-23
-
-* Within Old CC/
-    -   Libft
-    -   get_next_line
-    -   ft_printf
-    -   ft_printf test main
-
-* Within Piscine-26/
-    -   Data Structures
-    -   Imperative Programming
-    -   Memory Management
-    -   Shell
-    -   Rush
-    -   Tutorial
-    -   Failed Projects
 
 * Within Common Core/
     - Programming Fundamentals
@@ -61,39 +31,32 @@ The Projects contained are as follows:
         - A_Maze_Ing
         - Pacman
 
-* Within Piscine
-    * Shell00
-    * Shell01
-    * Rush00
-    * C00
-    * C01
-    * C02
-    * C03
-    * C04
-    * C05
-    * C06
-    * C07
+* Within Old CC/
+    -   Within Piscine_Reloaded/
+        -   Exercises 0-23
+    -   Within Piscine/
+        -   Shell00
+        -   Shell01
+        -   Rush00
+        -   C00
+        -   C01
+        -   C02
+        -   C03
+        -   C04
+        -   C05
+        -   C06
+        -   C07
+    -   Testers
+        -   printf_main
+    -   ft_printf
+    -   get_next_line
+    -   libft
 
-* Within Piscine_Reloaded
-    * Exercises 0-23
-    * Within Old CC
-        * Libft
-        * get_next_line
-        * ft_printf
-        * ft_printf test main
-
-* Within Piscine-26
-    * Data Structures
-    * Imperative Programming
-    * Memory Management
-    * Shell
-    * Rush
-    * Tutorial
-    * Failed Projects
-
-* Within Common Core
-    * Programming Fundamentals
-        * Libft
-        * Printf
-
-
+* Within Piscine-26/
+    -   Data Structures
+    -   Imperative Programming
+    -   Memory Management
+    -   Shell
+    -   Rush
+    -   Tutorial
+    -   Failed Projects
