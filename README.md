@@ -40,6 +40,26 @@ The Projects contained are as follows:
     - Programming Fundamentals
         - Libft
         - Get Next Line
+        - Printf
+        - Push_Swap
+    - Systems And Networks Administration
+        - Born2beRoot
+        - NetPractice
+        - Inception
+    - Object Oriented Programming
+        - Growing_Code
+        - Code_Cultivation
+        - Garden_Guardian
+        - Data_Quest
+        - Data_Archivist
+        - Code_Nexus
+        - The_Codex
+        - DataDeck
+        - The_Matrix
+        - Cosmic_Data
+        - FuncMage
+        - A_Maze_Ing
+        - Pacman
 
 * Within Piscine
     * Shell00
