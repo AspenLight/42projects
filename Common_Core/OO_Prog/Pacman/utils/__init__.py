@@ -1,5 +1,5 @@
 from .system_data import Inputs, State, SaveSystem, LevelSystem
-from .game_object import Maze, Ghost, Player, Node
+from .game_objects import Maze, Ghost, Player
 from .consts import (
     MARGIN,
     FPS,
@@ -17,14 +17,23 @@ from .consts import (
     GHOST_ANIMATIONS,
     PLAYER_SPEED,
 )
-from .screens import Screen, MenuScreen, TypingScreen, GameScreen
+from .screens import (
+    Screen,
+    MainMenu,
+    GameOverScreen,
+    GameScreen,
+    PauseMenu,
+    VictoryScreen,
+)
 
 __all__ = [
     "LevelSystem",
     "Screen",
-    "MenuScreen",
-    "TypingScreen",
+    "MainMenu",
+    "GameOverScreen",
+    "VictoryScreen",
     "GameScreen",
+    "PauseMenu",
     "Inputs",
     "State",
     "SaveSystem",

@@ -1,4 +1,5 @@
 import pygame
+import tkinter
 from utils import (
     Inputs,
     State,
@@ -14,9 +15,11 @@ from utils import (
     BOTTOM_BAR,
     FPS,
     Screen,
-    MenuScreen,
-    TypingScreen,
+    MainMenu,
+    GameOverScreen,
     GameScreen,
+    PauseMenu,
+    VictoryScreen,
 )
 
 # --------------------------------------------------------------------------
@@ -34,7 +37,10 @@ def get_img(
 
 
 def load_player(
-    cell_size: int, sheet: pygame.Surface, center_coord: pygame.Vector2
+    cell_size: int,
+    sheet: pygame.Surface,
+    center_coord: pygame.Vector2,
+    state: State,
 ) -> Player:
     player = Player(cell_size)
     player.frames = [
@@ -43,6 +49,8 @@ def load_player(
     ]
     player.grid_position = center_coord
     player.set_animation(None)
+    if state.cheat.increased_speed:
+        player.speed *= 2
     return player
 
 
@@ -99,7 +107,7 @@ def load_ghosts(
 # --------------------------------------------------------------------------
 
 
-def handle_events(inp: Inputs, savefile: SaveSystem) -> bool:
+def handle_events(inp: Inputs, savefile: SaveSystem, state: State) -> bool:
     inp.pressed.clear()
     inp.typed.clear()
     for event in pygame.event.get():
@@ -111,6 +119,11 @@ def handle_events(inp: Inputs, savefile: SaveSystem) -> bool:
             if event.key == pygame.K_ESCAPE:
                 savefile.export()
                 return False
+            if state.mode == "game":
+                if event.key == pygame.K_SPACE:
+                    state.mode = "pause"
+                if event.key == pygame.K_l:
+                    state.cheat.lvl_skip = True
             inp.pressed.append(event.key)
             if event.key in KEY_TO_DIR and event.key not in inp.held:
                 inp.held.append(event.key)
@@ -123,6 +136,10 @@ def handle_events(inp: Inputs, savefile: SaveSystem) -> bool:
 # Main
 # --------------------------------------------------------------------------
 def main() -> None:
+    root = tkinter.Tk()
+    root.withdraw()
+    monitor_w: int = root.winfo_screenwidth()
+    # monitor_h = root.winfo_screenheight()
     state = State()
     savefile = SaveSystem()
     if savefile.loading(state) is False:
@@ -137,19 +154,17 @@ def main() -> None:
     ):
         print("change Maze size")
         return
-
-    window = pygame.display.set_mode(
-        (
-            2 * MARGIN + state.cell_size * state.m_width,
-            2 * MARGIN + state.cell_size * state.m_height + BOTTOM_BAR,
-        )
-    )
-    # text input is tied to the window, so stop it after set_mode
+    window_width = 2 * MARGIN + state.cell_size * state.m_width
+    window_height = 2 * MARGIN + state.cell_size * state.m_height + BOTTOM_BAR
+    if window_width < monitor_w // 1.5:
+        window_width = int(monitor_w // 1.5)
+    if window_height < 800:
+        window_height = 800
+    window = pygame.display.set_mode((window_width, window_height))
     pygame.key.stop_text_input()
     clock = pygame.time.Clock()
     sheet = pygame.image.load("pac_sheet.png").convert_alpha()
     maze = Maze(state)
-    maze.maze_fill(state)
     centerwidth = (
         state.m_width // 2 - 1
         if state.m_width % 2 == 0
@@ -159,37 +174,56 @@ def main() -> None:
         state.cell_size,
         sheet,
         pygame.Vector2(centerwidth, state.m_height // 2),
+        state,
     )
     ghosts_template = load_ghosts(
         state.cell_size, sheet, state.m_width, state.m_height
     )
-    background = maze.build_maze_surface(state)
 
     title_font = pygame.font.SysFont(None, 100)
     button_font = pygame.font.SysFont(None, 48)
     win_w = window.get_width()
+
     inp = Inputs()
     screens: dict[str, Screen] = {
-        "main menu": MenuScreen(
+        "main menu": MainMenu(
             "PAC MAN",
-            [("Push SPACE to play", "game")],
+            [
+                ("Select to play", "game"),
+                ("Invicibility", ""),
+                ("extra_life", ""),
+                ("ghost_freeze", ""),
+                ("increased_speed", ""),
+            ],
             title_font,
             button_font,
             win_w,
         ),
-        "typing": TypingScreen(button_font, win_w, state.current_score),
-        "game": GameScreen(player_template, maze, ghosts_template, background),
+        "pause": PauseMenu(
+            "PAUSE",
+            [
+                ("get back to the game", "game"),
+                ("get back to the main menu", "main menu"),
+            ],
+            title_font,
+            button_font,
+            win_w,
+        ),
+        "gameover": GameOverScreen(button_font, win_w, state.current_score),
+        "win": VictoryScreen(button_font, win_w, state.current_score),
+        "game": GameScreen(player_template, maze, ghosts_template),
     }
     running = True
     while running:
         screen = screens[state.mode]
-        running = handle_events(inp, savefile)
+        running = handle_events(inp, savefile, state)
         next_mode = screen.update(inp, state, savefile)
         screen.draw(window, state, savefile)
         if next_mode and next_mode != state.mode:
             state.mode = next_mode
             inp.held.clear()
-            screens[next_mode].on_enter(state)
+            if state.ingame is False:
+                screens[next_mode].on_enter(state)
         pygame.display.flip()
         state.dt = clock.tick(FPS)
     print("\033[H\033[J", end="")

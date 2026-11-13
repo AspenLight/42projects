@@ -1,4 +1,5 @@
 VENV_PATH=mazeenv/bin/activate.fish
+FILES = pac_man.py utils
 
 run:
 	python3 pac_man.py config.json
@@ -16,10 +17,12 @@ clean:
 	rm -rf dist
 	find . -type d -name ".mypy_cache" -exec rm -rf {} +
 
+.PHONY: lint lint-strict
+
 lint:
-	flake8 pac_man.py & mypy --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs  pac_man.py
-	flake8 utils & mypy --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs  utils
+	flake8 $(FILES)
+	mypy --warn-return-any --warn-unused-ignores --ignore-missing-imports --disallow-untyped-defs --check-untyped-defs $(FILES)
 
 lint-strict:
-	mypy pac_man.py --strict --ignore-missing-imports & flake8 pac_man.py
-	mypy utils --strict --ignore-missing-imports & flake8 utils
+	flake8 $(FILES)
+	mypy --strict --ignore-missing-imports $(FILES)

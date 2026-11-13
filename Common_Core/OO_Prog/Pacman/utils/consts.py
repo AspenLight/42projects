@@ -87,3 +87,13 @@ GHOST_ANIMATIONS: dict[Optional[str], tuple[int, ...]] = {
     "d_left": (0, 0),
     "d_right": (2, 2),
 }
+RULES = [
+    ":> Eat every (super)pacgums to clear the level.",
+    ":> Touching a non vulnerable ghost costs you a life.",
+    ":> Super-pacgums make ghosts vulnerable.",
+    ":> Vulnerable ghosts can be eaten.",
+    ":> Eating (super)pacgums, and ghosts give points",
+    ":> Lose all your lives and the game is over.",
+    ":> If the timer goes to 0 the game is over.",
+    ":> Clear all 10 level to win.",
+]
